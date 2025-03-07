@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login as auth_login, logout
 from .models import contact
 import numpy as np
 import joblib
+from.models import AccidentPrediction
 
 #load pickle files
 
@@ -80,3 +81,48 @@ def contact_us(request):
             messages.success(request, 'Message uploaded')
             return redirect('contact_us') 
     return render(request, 'home.html')
+
+
+  
+def predict_future_hotspot(request):
+    if request.method == 'POST':
+        if request.POST.get('form_type') == 'accident_prediction':
+            latitude = float(request.POST.get('latitude'))
+            longitude = float(request.POST.get('longitude'))
+            Noofvehicle_involved=int(request.POST.get('Noofvehicle_involved'))
+            Severity_Fatal=int(request.POST.get('Severity_Fatal'))
+            Severity_Grievous_Injury=int(request.POST.get('Severity_Grievous_Injury'))
+            Weather_Clear=int(request.POST.get('Weather_Clear'))
+            Weather_Cloudy=int(request.POST.get('Weather_Cloudy'))
+            Weather_Heavy_Rain=int(request.POST.get('Weather_Heavy_Rain'))
+            Weather_Light_Rain=int(request.POST.get('Weather_Light_Rain'))
+            Road_Type_NH=int(request.POST.get('Road_Type_NH'))
+            Road_Type_Residential_Street=int(request.POST.get('Road_Type_Residential_Street'))
+            
+            new_input = np.array([[latitude, longitude, Noofvehicle_involved,
+                           Severity_Fatal, Severity_Grievous_Injury, 
+                           Weather_Clear, Weather_Cloudy, Weather_Heavy_Rain, 
+                           Weather_Light_Rain, Road_Type_NH, Road_Type_Residential_Street]])
+            new_input_scaled = scaler.transform(new_input)
+            predicted_cluster = kmeans.predict(new_input_scaled)[0]
+            
+            hotspot = AccidentPrediction(latitude=latitude, longitude=longitude, cluster=predicted_cluster)    
+            hotspot.save()
+            
+            
+            return redirect('prediction result')
+    return render(request, 'index.html')
+ 
+def prediction_result(request):
+    latest_prediction=Acdident_Prediction.objects.latest('timestamp') if Accident_Prediction.objects.exists() else None
+    
+    if latest_prediction:
+        context
+        {
+            'latitude':latest_prediction.latitude,
+            'longitude':latest_prediction.longitude,
+            'cluster':latest_prediction.cluster
+        }
+    else:
+        context={"error:""No predictionns availabe yet."}
+    return render(request,"index.html",context)

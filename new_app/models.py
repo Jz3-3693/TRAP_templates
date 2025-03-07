@@ -11,7 +11,7 @@ class contact(models.Model):
  message =models.CharField(max_length=255)
  # Create your models here.
  
- class Accident_Prediction(models.Model):
+class AccidentPrediction(models.Model):
      latitude=models.FloatField()
      longitude=models.FloatField()
      cluster=models.IntegerField()
