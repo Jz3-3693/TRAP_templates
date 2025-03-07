@@ -1,0 +1,143 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Accident Prediction System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
+     <style>
+        .hero {
+            background: url("{% static 'img/world-map-with-global-network-vector.jpg' %}") no-repeat center ;
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+     </style>  
+   
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+           
+            <a class="navbar-brand" href="#">Traffic Predictor</a>
+            <div class="img"></div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#visualizations">Visualizations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="logbtn">
+                <button id="log"><a href="{% url 'login_view' %}">  login</a></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home Page Hero Section -->
+    <section class="hero">
+        <h1>Predict Accidents Before They Happen</h1>
+        <p>Leveraging data and AI to create safer roads and smarter cities.</p>
+        <a href="login.html" class="btn btn-primary btn-lg">Explore Hotspots</a>
+        <a href="#features" class="btn btn-outline-light btn-lg">Learn More</a>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Key Features</h2>
+            <div class="row text-center">
+                <div class="col-md-4">
+                      <div class="ftbox">
+                        <span class="feature-icon">📍</span>
+                        <h4>Interactive Hotspot Map</h4>
+                        <p>Visualize accident-prone areas in real-time.</p>
+                        </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="ftbox">
+                        <span class="feature-icon">⏱️</span>
+                        <h4>Accident Predictions</h4>
+                        <p>Identify accident-prone times and areas.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="ftbox">
+                        <span class="feature-icon">📊</span>
+                        <h4>Data Visualizations</h4>
+                        <p>Analyze accident trends and patterns easily.</p>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- About Page -->
+     <section id="about" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">About Us</h2>
+            <p>
+                The Traffic Accident Prediction System is a groundbreaking platform designed to enhance road safety by leveraging
+                historical accident data, live traffic data, and advanced machine learning models. Our mission is to reduce traffic
+                accidents and save lives by providing actionable insights to commuters, city planners, and transportation authorities.
+            </p>
+            <p>
+                By identifying accident-prone hotspots, predicting accident-prone times, and offering data-driven visualizations, our
+                system empowers users with the tools needed to make informed decisions and foster safer roads for everyone.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Page -->
+    <section id="contact" class="py-5 bg-light">
+        <div class="container">
+   
+            <h2 class="text-center mb-4">Contact Us</h2>
+        {% if messages %}
+            {% for message in messages %} 
+                <p style="color:red">{{ message }}</p>
+            {% endfor %}
+        {% endif %}   
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    
+                    <input type="hidden" name="form_type" value="contact_view" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Your name">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Your email">
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea class="form-control"name="message" id="message" rows="5" placeholder="Your message"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </section>
+    
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Traffic Accident Prediction System. All rights reserved.</p>
+            <p>Contact us at <a href="#">support@trafficpredictor.com</a></p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

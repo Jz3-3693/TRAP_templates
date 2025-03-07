@@ -1,0 +1,91 @@
+/* 
+.header{
+    background-color: rgb(12, 174, 174);
+}
+
+body{
+    background: url(../ASSETS/13647.webp);
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+.navbar{
+    list-style: none;
+    margin: 10px;
+    
+}
+.navbar a{
+    align-items: baseline;
+    text-decoration: none;
+    color: bisque;
+ display: flex;
+}
+.title{
+    margin-left: 500px;
+}
+#loginbtn{
+    background-color: #028cfd;
+    color: white;
+    box-shadow: 2px 2px 2px 2px black;
+    border-radius: 5px 5px;
+    margin-left: 1193px;
+} */
+ 
+body {
+    font-family: Arial, sans-serif;
+}
+img{
+    
+    background-color: aqua;
+}
+
+.hero:hover{
+    box-shadow: 12px 12px 12px  inset  #0000007b;
+}
+.feature-icon {
+    font-size: 40px;
+    color: #007BFF;
+}
+.ftbox{
+    border: 1px solid #24282d;
+    background-color: rgb(255 255 255);
+    height: 50vh;
+    box-shadow: 0px 9px 13px -1px #b2b4b6;
+    justify-content: center;
+    align-content: center;
+    border-radius: 55px;
+}
+footer {
+    background: #f8f9fa;
+    padding: 20px 0;
+    text-align: center;
+    
+}
+
+#log{
+    border:0;
+    
+    /* background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgb(14, 66, 77) 100%); */
+    background-color: rgb(12, 113, 207);
+    border-radius: 10px;
+    
+   
+    margin-left: 30px;
+    
+}
+#log a{
+    text-decoration: none;
+    color: rgb(224, 226, 226);
+    font-size: 20px;
+}
+#log:hover{
+    /* background-color: blue; */
+    animation-name: example;
+    animation-duration: 1s;
+
+}
+@keyframes example {
+    0%   {background-color: rgba(111, 7, 140, 0.333);}
+    25%  {background-color: rgb(9, 39, 105);}
+    50%  {background-color: rgb(55, 15, 200);}
+    100% {background-color: rgb(128, 0, 126);}
+  }

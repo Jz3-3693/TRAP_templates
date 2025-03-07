@@ -1,0 +1,102 @@
+.login{
+  
+       
+           /* background: rgb(2, 0, 36); */
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgb(14, 66, 77) 100%);
+   
+    margin-top: 100px;
+    margin-left: 350px;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    border-radius: 10px 15px;
+    max-width: 500px;
+    border: 2px solid white;
+    position: fixed;
+   
+
+       
+}
+  
+  @keyframes example {
+    0%   {background-color: rgba(111, 7, 140, 0.333);}
+    25%  {background-color: rgb(9, 39, 105);}
+    50%  {background-color: rgb(82, 4, 79);}
+    100% {background-color: rgb(128, 0, 126);}
+  }
+body{
+    background-color: rgb(3, 3, 87);
+    animation-name: example;
+    animation-duration: 4s
+    
+}
+.login.logttl{
+    text-align: center;
+    color: beige;
+}
+.login form{
+    color: beige;
+    margin-left: 10px;
+    
+}
+
+.login form input{
+    width: 97%;
+}
+.signin{
+margin-left: 45%;
+}
+.signin:hover{
+    background-color: rgb(18, 143, 227);
+}
+
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+ .registerbtn{
+    
+    margin-bottom: -12px;
+    margin-top: 22px;
+    margin-left: 116px;
+
+
+} 
+.register{
+  
+        /* background: rgb(2, 0, 36); */
+        background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgb(14, 66, 77) 100%);
+   
+        margin-top: 50px;
+        margin-left: 350px;
+        padding-top: 100px;
+        padding-bottom: 100px;
+        border-radius: 10px 15px;
+        max-width: 500px;
+        border: 2px solid white;
+        position: fixed;
+}
+.logbtn{
+    margin-bottom: -12px;
+    margin-top: 22px;
+    margin-left: 116px;
+    
+
+}
+.regtitle{
+    text-align: center;
+    color: beige;
+}
+.register form{
+    color: beige;
+    margin-left: 10px;
+}
+.register form input{
+    width: 97%;
+}
+.register.signin{
+margin-left: 45%;
+}
+.register.signin:hover{
+    background-color: rgb(18, 143, 227);
+}
