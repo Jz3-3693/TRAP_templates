@@ -64,7 +64,9 @@
                 // Update the iframe src dynamically
                 document.getElementById('mapframe').src = openStreetMapUrl;
             </script>
+            
             <p class="text-center">Use the map to explore accident-prone areas in your city.</p>
+
         </div>
     </section>
 
@@ -72,54 +74,63 @@
     <section id="predictions" class="py-5 bg-light">
         <div class="container">
             <h2 class="text-center mb-4">Accident Predictions</h2>
-            <form>
+            {% if cluster is not None %}
+               <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading text-center">The Predicted Hotspot Cluster is <strong>{{cluster}}</strong></h4>
+               </div>
+                <div class="text_center">
+                    <center><a id="viewOnMapBtn"class="btn btn-success text-center">View on Map</a></center>
+                </div>
+            {% endif %}
+            <br>
+            <form method="post">
+                {% csrf_token %}
                 <div class="mb-3">
-                    <h5>Longitude & Latitude</h5>
-                    <label for="longitude" class="form-label">Longitude</label>
-                    <input type="text" class="form-control" id="longitude" placeholder="Enter longitude">
+                    <h4>Please Enter The Details</h4>
                     <label for="latitude" class="form-label">Latitude</label>
-                    <input type="text" class="form-control" id="latitude" placeholder="Enter latitude">
+                    <input type="text" class="form-control" name="latitude" id="latitude"  placeholder="Enter longitude" required>
                 </div>
                 <div class="mb-3">
-   
-                    <label for="Noofvehicle_involved" class="form-label">  No of Vehicle Involved</label>
-                    <input type="text" class="form-control" id="Noofvehicle_involved" placeholder="Enter No of Vehicle involved(0/1)">
+                    <label for="longitude" class="form-label">Longitude</label>
+                    <input type="text" class="form-control" name="longitude" id="longitude" required placeholder="Enter latitude" >
                 </div>
-
+                <div class="mb-3">
+                    <label for="no_of_vehicles" class="form-label">Number of Vehicles Involved</label>
+                    <input type="number" class="form-control" name="no_of_vehicles" required placeholder="Enter No of Vehicle involved">
+                </div>
                 <div class="mb-3">
                     <h5>Severity</h5>
-                    <label for="Severity_Fatal" class="form-label"> Fatal</label>
-                    <input type="text" class="form-control" id="Severity_Fatal" placeholder="Enter Severity Fatal(0/1)">
-                    <label for="Severity_Grievous_Injury" class="form-label">Grievous Injury</label>
-                    <input type="text" class="form-control" id="Severity_Grievous_Injury" placeholder="Enter Grievous Injury(0/1)">
-                </div>
-                <div class="mb-3">
-                    <h5>Weather Condition</h5>
-                    <label for="Weather_Clear" class="form-label">Clear</label>
-                    <input type="text" class="form-control" id="Weather_Clear" placeholder="Enter Clear(0/1)">
-                    <label for="Weather_Cloudy" class="form-label">Cloudy</label>
-                    <input type="text" class="form-control" id="Weather_Cloudy" placeholder="Enter Cloudy(0/1)">
-                    <label for="Weather_Heavy_Rain" class="form-label">Heavy Rain</label>
-                    <input type="text" class="form-control" id="Weather_Heavy_Rain" placeholder="Enter Heavy Rain(0/1)">
-                    <label for="Weather_Light_Rain" class="form-label">Light Rain</label>
-                    <input type="text" class="form-control" id="Weather_Light_Rain" placeholder="Enter Light Rain(0/1)">
+                    <label class="form-label">Fatal (0/1)</label>
+                    <input type="number" class="form-control" name="severity_fatal" required placeholder="Enter Severity Fatal(0/1)">
+                    <label class="form-label">Grievous Injury (0/1)</label>
+                    <input type="number" class="form-control" name="severity_grievous" required placeholder="Enter Severity Fatal(0/1)">
                 </div>
                 <div class="mb-3">
                     <h5>Road Type</h5>
-                    <label for="Road_Type_NH" class="form-label">NH Road</label>
-                    <input type="text" class="form-control" id="Weather_Light_Rain" placeholder="Enter NH Road(0/1)">
-                    <label for="Road_Type_Residential_Street" class="form-label">Residential Street</label>
-                    <input type="text" class="form-control" id="Road_Type_Residential_Street" placeholder="Enter Residential Street(0/1)">
+                    <label class="form-label">National Highway (0/1)</label>
+                    <input type="number" class="form-control" name="road_type_nh" required placeholder="Enter NH road(0/1)">
+                    <label class="form-label">Residential Street (0/1)</label>
+                    <input type="number" class="form-control" name="road_type_residential" required placeholder="Enter Residential road(0/1)">
                 </div>
-                 <br>
-                <button type="submit" class="btn btn-primary">Get Predictions</button>
+                <div class="mb-3">
+                    <h5>Weather Condition</h5>
+                    <label class="form-label">Clear (0/1)</label>
+                    <input type="number" class="form-control" name="weather_clear" required placeholder="Enter Clear weather(0/1)">
+                    <label class="form-label">Cloudy (0/1)</label>
+                    <input type="number" class="form-control" name="weather_cloudy" required placeholder="Enter Cloudy weather(0/1)">
+                    <label class="form-label">Heavy Rain (0/1)</label>
+                    <input type="number" class="form-control" name="weather_heavy_rain" required placeholder="Enter Heavy Rain(0/1)">
+                    <label class="form-label">Light Rain (0/1)</label>
+                    <input type="number" class="form-control" name="weather_light_rain" required placeholder="Enter Light Rain(0/1)">
+                </div>
+                <button type="submit" class="btn btn-primary">Predict Hotspot</button>
             </form>
         </div>
     </section>
-
     <!-- Visualizations Page -->
     <section id="visualizations" class="py-5">
         <div class="container">
+          
             <h2 class="text-center mb-4">Data Visualizations</h2>
             <div class="chart-container">Graphs and charts will be displayed here.</div>
             <p class="text-center">Analyze trends and gain insights from historical data.</p>
@@ -127,6 +138,22 @@
     </section>
   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let viewOnMapBtn = document.getElementById('viewOnMapBtn');
+            {% if latitude and longitude and cluster is not None %}
+                let lat="{{latitude}}";
+                let lon="{{longitude}}";
+                let cluster="{{cluster}}";
+                if(viewOnMapBtn){
+                    viewOnMapBtn.href=`/map/?latitude=${lat}&longitude=${lon}&cluster=${cluster}`;
+                    
+                }
+            {% endif %}    
+
+        });
+    </script>
+
 </body>
 </html>
 

@@ -10,5 +10,5 @@ urlpatterns = [
     path('contact_us/',views.contact_us,name='contact_us'),
      path('predict/', views.predict_future_hotspot, name='predict_future_hotspot'),
     path('result/', views.prediction_result, name='prediction_result'),
-    
+    path('map/',views.map_view,name='map_view')  
 ]
